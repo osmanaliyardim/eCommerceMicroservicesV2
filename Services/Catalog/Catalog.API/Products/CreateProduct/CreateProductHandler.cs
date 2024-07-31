@@ -1,16 +1,14 @@
-﻿using eCommerceMicroservices2.BuildingBlocks.CQRS;
-using eCommerceMicroservicesV2.Catalog.API.Models;
-
-namespace eCommerceMicroservicesV2.Catalog.API.Products.CreateProduct;
+﻿namespace eCommerceMicroservicesV2.Catalog.API.Products.CreateProduct;
 
 public record CreateProductCommand(
-    string Name, List<string> Categories, string Description, 
+    string Name, List<string> Categories, string Description,
     string ImageFile, decimal Price
 ) : ICommand<CreateProductResult>;
 
 public record CreateProductResult(Guid Id);
 
-internal class CreateProductCommandHandler : ICommandHandler<CreateProductCommand, CreateProductResult>
+internal class CreateProductCommandHandler(IDocumentSession session)
+    : ICommandHandler<CreateProductCommand, CreateProductResult>
 {
     public async Task<CreateProductResult> Handle(CreateProductCommand command, CancellationToken cancellationToken)
     {
@@ -23,8 +21,9 @@ internal class CreateProductCommandHandler : ICommandHandler<CreateProductComman
             Price = command.Price
         };
 
-        // ToDo: save to DB
+        session.Store(productToCreate);
+        await session.SaveChangesAsync(cancellationToken);
 
-        return new CreateProductResult(Guid.NewGuid());
+        return new CreateProductResult(productToCreate.Id);
     }
 }
