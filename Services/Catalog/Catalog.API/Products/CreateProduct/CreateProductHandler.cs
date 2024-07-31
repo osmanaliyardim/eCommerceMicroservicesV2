@@ -7,7 +7,7 @@ public record CreateProductCommand(
 
 public record CreateProductResult(Guid Id);
 
-internal class CreateProductCommandHandler(IDocumentSession session)
+internal class CreateProductCommandHandler(IDocumentSession session, ILogger<CreateProductCommandHandler> logger)
     : ICommandHandler<CreateProductCommand, CreateProductResult>
 {
     public async Task<CreateProductResult> Handle(CreateProductCommand command, CancellationToken cancellationToken)
@@ -21,8 +21,15 @@ internal class CreateProductCommandHandler(IDocumentSession session)
             Price = command.Price
         };
 
-        session.Store(productToCreate);
-        await session.SaveChangesAsync(cancellationToken);
+        try
+        {
+            session.Store(productToCreate);
+            await session.SaveChangesAsync(cancellationToken);
+        }
+        catch (Exception)
+        {
+            logger.LogError("Problem with saving product to CatalogDB");
+        }
 
         return new CreateProductResult(productToCreate.Id);
     }

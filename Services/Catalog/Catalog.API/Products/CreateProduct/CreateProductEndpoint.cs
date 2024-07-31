@@ -1,7 +1,7 @@
 ﻿namespace eCommerceMicroservicesV2.Catalog.API.Products.CreateProduct;
 
 public record CreateProductRequest(
-    string Name, List<string> Category, string Description, 
+    string Name, List<string> Categories, string Description, 
     string ImageFile, decimal Price
 );
 
