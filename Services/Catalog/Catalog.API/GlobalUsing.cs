@@ -5,3 +5,4 @@ global using eCommerceMicroservices2.BuildingBlocks.CQRS;
 global using eCommerceMicroservicesV2.Catalog.API.Models;
 global using Marten;
 global using eCommerceMicroservicesV2.Catalog.API.Exceptions;
+global using FluentValidation;
