@@ -7,3 +7,5 @@ global using Marten;
 global using eCommerceMicroservicesV2.Catalog.API.Exceptions;
 global using FluentValidation;
 global using eCommerceMicroservices2.BuildingBlocks.Exceptions;
+global using eCommerceMicroservices2.BuildingBlocks.Behaviors;
+global using eCommerceMicroservices2.BuildingBlocks.Exceptions.Handler;
