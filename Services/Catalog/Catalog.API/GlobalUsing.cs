@@ -10,3 +10,4 @@ global using eCommerceMicroservices2.BuildingBlocks.Exceptions;
 global using eCommerceMicroservices2.BuildingBlocks.Behaviors;
 global using eCommerceMicroservices2.BuildingBlocks.Exceptions.Handler;
 global using eCommerceMicroservicesV2.Catalog.API.Data;
+global using Marten.Pagination;
