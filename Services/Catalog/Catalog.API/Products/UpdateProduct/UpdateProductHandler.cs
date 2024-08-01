@@ -6,6 +6,30 @@ public record UpdateProductCommand(Guid Id, string Name, List<string> Categories
 
 public record UpdateProductResult(Product Product);
 
+public class UpdateProductCommandValidator : AbstractValidator<UpdateProductCommand>
+{
+    public UpdateProductCommandValidator()
+    {
+        RuleFor(x => x.Id)
+            .NotEmpty()
+            .WithMessage("Product Id is required");
+        RuleFor(x => x.Name).MinimumLength(3).MaximumLength(50)
+            .WithMessage("Product Name must include characters between 3 - 50.")
+            .NotEmpty()
+            .WithMessage("Product Name is required");
+        RuleFor(x => x.Categories)
+            .NotEmpty()
+            .WithMessage("At least one Category is required for Product.");
+        RuleFor(x => x.ImageFile)
+            .NotEmpty()
+            .WithMessage("Product ImageFile is required.");
+        RuleFor(x => x.Price).GreaterThan(0).LessThan(100001)
+            .WithMessage("Product Price must be between 1 - 100000.")
+            .NotEmpty()
+            .WithMessage("Product Price is required.");
+    }
+}
+
 public class UpdateProductCommandHandler(IDocumentSession session, ILogger<UpdateProductCommandHandler> logger)
     : ICommandHandler<UpdateProductCommand, UpdateProductResult>
 {
