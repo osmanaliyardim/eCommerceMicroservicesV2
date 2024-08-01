@@ -4,7 +4,7 @@ public record GetProductByCategoryQuery(string Categories) : IQuery<GetProductBy
 
 public record GetProductByCategoryResult(IEnumerable<Product> Products);
 
-internal class GetProductByCategoryQueryHandler(IDocumentSession sesion, ILogger<GetProductByCategoryQueryHandler> logger)
+internal class GetProductByCategoryQueryHandler(IDocumentSession sesion) 
     : IQueryHandler<GetProductByCategoryQuery, GetProductByCategoryResult>
 {
     public async Task<GetProductByCategoryResult> Handle(GetProductByCategoryQuery query, CancellationToken cancellationToken)
@@ -27,15 +27,11 @@ internal class GetProductByCategoryQueryHandler(IDocumentSession sesion, ILogger
         }
         catch (Exception exception)
         {
-            logger.LogError("Problem with getting product by category from CatalogDB");
-
             throw new DatabaseException(exception.Message, exception.StackTrace!);
         }
 
         if (productsToList is null)
         {
-            logger.LogError("Products could not found with category criteria");
-
             throw new ProductNotFoundException(query.Categories);
         }
 

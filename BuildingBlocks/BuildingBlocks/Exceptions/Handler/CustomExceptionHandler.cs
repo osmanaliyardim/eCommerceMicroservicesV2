@@ -14,9 +14,8 @@ public class CustomExceptionHandler(ILogger<CustomExceptionHandler> logger)
         Exception exception,
         CancellationToken cancellationToken)
     {
-        logger.LogError(
-            "Error Message: {exceptionMessage}, Time of occurrence {time}",
-            exception.Message, DateTime.UtcNow);
+
+        logger.LogError(Messages.GetCustomException(exception.Message, DateTime.UtcNow));
 
         (string Detail, string Title, int StatusCode) details = exception switch
         {

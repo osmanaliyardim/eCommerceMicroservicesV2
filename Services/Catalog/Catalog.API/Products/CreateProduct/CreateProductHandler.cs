@@ -28,8 +28,7 @@ public class CreateProductCommandValidator : AbstractValidator<CreateProductComm
     }
 }
 
-internal class CreateProductCommandHandler(IDocumentSession session, ILogger<CreateProductCommandHandler> logger) 
-    : ICommandHandler<CreateProductCommand, CreateProductResult>
+internal class CreateProductCommandHandler(IDocumentSession session) : ICommandHandler<CreateProductCommand, CreateProductResult>
 {
     public async Task<CreateProductResult> Handle(CreateProductCommand command, CancellationToken cancellationToken)
     {
@@ -49,8 +48,6 @@ internal class CreateProductCommandHandler(IDocumentSession session, ILogger<Cre
         }
         catch (Exception exception)
         {
-            logger.LogError("Problem with saving product to CatalogDB");
-
             throw new DatabaseException(exception.Message, exception.StackTrace!);
         }
 

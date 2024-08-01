@@ -1,9 +1,10 @@
 ﻿using eCommerceMicroservices2.BuildingBlocks.CQRS;
 using FluentValidation;
+using Microsoft.Extensions.Logging;
 
 namespace eCommerceMicroservices2.BuildingBlocks.Behaviors;
 
-public class ValidationBehavior<TRequest, TResponse>(IEnumerable<IValidator<TRequest>> validators)
+public class ValidationBehavior<TRequest, TResponse>(IEnumerable<IValidator<TRequest>> validators, ILogger<ValidationBehavior<TRequest, TResponse>> logger)
     : IPipelineBehavior<TRequest, TResponse>
     where TRequest : ICommand<TResponse>
 {
@@ -21,7 +22,11 @@ public class ValidationBehavior<TRequest, TResponse>(IEnumerable<IValidator<TReq
                     .ToList();
 
         if (errors.Any())
+        {
+            logger.LogInformation(Messages.VALIDATION_ERROR);
+
             throw new ValidationException(errors);
+        }
 
         return await next();
     }

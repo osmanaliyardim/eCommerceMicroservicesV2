@@ -14,8 +14,7 @@ public class DeleteProductCommandValidator : AbstractValidator<DeleteProductComm
     }
 }
 
-internal class DeleteProductCommandHandler(IDocumentSession session, ILogger<DeleteProductCommandHandler> logger)
-    : ICommandHandler<DeleteProductCommand, DeleteProductResult>
+internal class DeleteProductCommandHandler(IDocumentSession session) : ICommandHandler<DeleteProductCommand, DeleteProductResult>
 {
     public async Task<DeleteProductResult> Handle(DeleteProductCommand command, CancellationToken cancellationToken)
     {
@@ -27,15 +26,11 @@ internal class DeleteProductCommandHandler(IDocumentSession session, ILogger<Del
         }
         catch (Exception exception)
         {
-            logger.LogError("Problem with accessing to DB to delete product from CatalogDB");
-
             throw new DatabaseException(exception.Message, exception.StackTrace!);
         }
 
         if (productToDelete is null)
         {
-            logger.LogError("Product not found to delete");
-
             throw new ProductNotFoundException(command.Id);
         }
 
@@ -46,8 +41,6 @@ internal class DeleteProductCommandHandler(IDocumentSession session, ILogger<Del
         }
         catch (Exception exception)
         {
-            logger.LogError("Problem with deleting product from CatalogDB");
-
             throw new DatabaseException(exception.Message, exception.StackTrace!);
         }
 

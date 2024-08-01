@@ -4,8 +4,7 @@ public record GetProductsQuery() : IQuery<GetProductsResult>;
 
 public record GetProductsResult(IEnumerable<Product> Products);
 
-internal class GetProductsQueryHandler(IDocumentSession session, ILogger<GetProductsQueryHandler> logger)
-    : IQueryHandler<GetProductsQuery, GetProductsResult>
+internal class GetProductsQueryHandler(IDocumentSession session) : IQueryHandler<GetProductsQuery, GetProductsResult>
 {
     public async Task<GetProductsResult> Handle(GetProductsQuery query, CancellationToken cancellationToken)
     {
@@ -17,15 +16,11 @@ internal class GetProductsQueryHandler(IDocumentSession session, ILogger<GetProd
         }
         catch (Exception exception)
         {
-            logger.LogError("Problem with getting products from CatalogDB");
-
             throw new DatabaseException(exception.Message, exception.StackTrace!);
         }
 
         if (productsToList is null)
         {
-            logger.LogInformation("Products could not found");
-
             throw new ProductNotFoundException("No Product(s) to List");
         }
 
