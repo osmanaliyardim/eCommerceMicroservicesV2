@@ -13,4 +13,10 @@
     {
         return $"Error Message: {errorMessage}, Time of occurrence {occuranceTime}";
     }
+
+    // Connection Strings/Keys/Secrets
+    public const string CATALOG_DB_NAME = "CatalogDB";
+
+    // Endpoints
+    public const string HEALTH_CHECK_ENDPOINT = "/health";
 }
