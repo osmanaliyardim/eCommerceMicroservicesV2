@@ -9,13 +9,24 @@ internal class GetProductByIdQueryHandler(IDocumentSession sesion, ILogger<GetPr
 {
     public async Task<GetProductByIdResult> Handle(GetProductByIdQuery query, CancellationToken cancellationToken)
     {
-        var productToList = await sesion.LoadAsync<Product>(query.Id, cancellationToken);
+        Product productToList = null!;
+
+        try
+        {
+            productToList = (await sesion.LoadAsync<Product>(query.Id, cancellationToken))!;
+        }
+        catch (Exception exception)
+        {
+            logger.LogError("Problem with getting product by id from CatalogDB");
+
+            throw new DatabaseException(exception.Message, exception.StackTrace!);
+        }
 
         if (productToList is null)
         {
-            logger.LogError("Problem with getting product from CatalogDB");
+            logger.LogError("Products could not found with id criteria");
 
-            throw new ProductNotFoundException();
+            throw new ProductNotFoundException(query.Id);
         }
             
         return new GetProductByIdResult(productToList);

@@ -9,11 +9,26 @@ internal class GetProductsQueryHandler(IDocumentSession session, ILogger<GetProd
 {
     public async Task<GetProductsResult> Handle(GetProductsQuery query, CancellationToken cancellationToken)
     {
-        var productsToList = await session.Query<Product>().ToListAsync(cancellationToken);
+        IReadOnlyList<Product> productsToList = null!;
+
+        try
+        {
+            productsToList = await session.Query<Product>().ToListAsync(cancellationToken);
+        }
+        catch (Exception exception)
+        {
+            logger.LogError("Problem with getting products from CatalogDB");
+
+            throw new DatabaseException(exception.Message, exception.StackTrace!);
+        }
 
         if (productsToList is null)
-            logger.LogError("Problem with getting products from CatalogDB");
- 
-        return new GetProductsResult(productsToList!);
+        {
+            logger.LogInformation("Products could not found");
+
+            throw new ProductNotFoundException("No Product(s) to List");
+        }
+
+        return new GetProductsResult(productsToList);
     }
 }

@@ -1,8 +1,6 @@
 ﻿namespace eCommerceMicroservicesV2.Catalog.API.Products.CreateProduct;
 
-public record DeleteProductCommand(
-    Guid Id
-) : ICommand<DeleteProductResult>;
+public record DeleteProductCommand(Guid Id) : ICommand<DeleteProductResult>;
 
 public record DeleteProductResult();
 
@@ -21,13 +19,24 @@ internal class DeleteProductCommandHandler(IDocumentSession session, ILogger<Del
 {
     public async Task<DeleteProductResult> Handle(DeleteProductCommand command, CancellationToken cancellationToken)
     {
-        var productToDelete = await session.LoadAsync<Product>(command.Id, cancellationToken);
+        Product productToDelete = null!;
+
+        try
+        {
+            productToDelete = (await session.LoadAsync<Product>(command.Id, cancellationToken))!;
+        }
+        catch (Exception exception)
+        {
+            logger.LogError("Problem with accessing to DB to delete product from CatalogDB");
+
+            throw new DatabaseException(exception.Message, exception.StackTrace!);
+        }
 
         if (productToDelete is null)
         {
             logger.LogError("Product not found to delete");
 
-            throw new ProductNotFoundException();
+            throw new ProductNotFoundException(command.Id);
         }
 
         try
@@ -35,9 +44,11 @@ internal class DeleteProductCommandHandler(IDocumentSession session, ILogger<Del
             session.Delete(productToDelete!);
             await session.SaveChangesAsync(cancellationToken);
         }
-        catch (Exception)
+        catch (Exception exception)
         {
             logger.LogError("Problem with deleting product from CatalogDB");
+
+            throw new DatabaseException(exception.Message, exception.StackTrace!);
         }
 
         return new DeleteProductResult();

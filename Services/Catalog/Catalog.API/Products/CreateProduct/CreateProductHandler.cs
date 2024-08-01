@@ -47,9 +47,11 @@ internal class CreateProductCommandHandler(IDocumentSession session, ILogger<Cre
             session.Store(productToCreate);
             await session.SaveChangesAsync(cancellationToken);
         }
-        catch (Exception)
+        catch (Exception exception)
         {
             logger.LogError("Problem with saving product to CatalogDB");
+
+            throw new DatabaseException(exception.Message, exception.StackTrace!);
         }
 
         return new CreateProductResult(productToCreate.Id);

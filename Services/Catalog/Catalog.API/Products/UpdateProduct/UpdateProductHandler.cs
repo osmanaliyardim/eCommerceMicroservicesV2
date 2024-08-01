@@ -35,13 +35,24 @@ public class UpdateProductCommandHandler(IDocumentSession session, ILogger<Updat
 {
     public async Task<UpdateProductResult> Handle(UpdateProductCommand command, CancellationToken cancellationToken)
     {
-        var productToUpdate = await session.LoadAsync<Product>(command.Id, cancellationToken);
+        Product productToUpdate = null!;
+
+        try
+        {
+            productToUpdate = (await session.LoadAsync<Product>(command.Id, cancellationToken))!;
+        }
+        catch (Exception exception)
+        {
+            logger.LogError("Problem with accessing to DB to update product from CatalogDB");
+
+            throw new DatabaseException(exception.Message, exception.StackTrace!);
+        }
 
         if (productToUpdate is null)
         {
-            logger.LogError("Problem with getting product for update from CatalogDB");
+            logger.LogError("Product not found to update");
 
-            throw new ProductNotFoundException();
+            throw new ProductNotFoundException(command.Id);
         }
 
         productToUpdate.Name = command.Name;
@@ -55,9 +66,11 @@ public class UpdateProductCommandHandler(IDocumentSession session, ILogger<Updat
             session.Update(productToUpdate);
             await session.SaveChangesAsync(cancellationToken);
         }
-        catch (Exception)
+        catch (Exception exception)
         {
             logger.LogError("Problem with updating product from CatalogDB");
+
+            throw new DatabaseException(exception.Message, exception.StackTrace!);
         }
 
         return new UpdateProductResult(productToUpdate);
