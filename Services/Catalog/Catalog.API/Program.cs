@@ -17,6 +17,11 @@ builder.Services.AddMarten(options =>
     options.Connection(builder.Configuration.GetConnectionString("CatalogDB")!);
 }).UseLightweightSessions();
 
+if (builder.Environment.IsDevelopment())
+{
+    builder.Services.InitializeMartenWith<CatalogInitialData>();
+}
+
 builder.Services.AddValidatorsFromAssembly(assembly);
 
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
