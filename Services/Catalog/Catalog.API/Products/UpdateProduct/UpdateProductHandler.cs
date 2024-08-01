@@ -13,7 +13,7 @@ public class UpdateProductCommandHandler(IDocumentSession session, ILogger<Updat
     {
         var productToUpdate = await session.LoadAsync<Product>(command.Id, cancellationToken);
 
-        if (productToUpdate == null)
+        if (productToUpdate is null)
         {
             logger.LogError("Problem with getting product for update from CatalogDB");
 

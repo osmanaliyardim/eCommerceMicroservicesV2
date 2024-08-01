@@ -10,7 +10,8 @@ public class DeleteProductEndpoint : ICarterModule
                 var result = await sender.Send(new DeleteProductCommand(id));
 
                 return Results.NoContent();
-            })
+            }
+        )
         .WithName("DeleteProduct")
         .Produces(StatusCodes.Status204NoContent)
         .ProducesProblem(StatusCodes.Status404NotFound)

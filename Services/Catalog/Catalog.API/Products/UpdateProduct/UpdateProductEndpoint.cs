@@ -20,7 +20,8 @@ public class UpdateProductEndpoint : ICarterModule
                 var response = result.Adapt<UpdateProductResponse>();
 
                 return Results.Ok(response);
-            })
+            }
+        )
         .WithName("UpdateProduct")
         .Produces<UpdateProductResponse>(StatusCodes.Status200OK)
         .ProducesProblem(StatusCodes.Status404NotFound)
