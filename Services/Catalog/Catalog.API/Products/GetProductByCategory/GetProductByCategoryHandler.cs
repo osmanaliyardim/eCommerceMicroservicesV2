@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace eCommerceMicroservicesV2.Catalog.API.Products.GetProductByCategory;
+﻿namespace eCommerceMicroservicesV2.Catalog.API.Products.GetProductByCategory;
 
 public record GetProductByCategoryQuery(string Categories) : IQuery<GetProductByCategoryResult>;
 
