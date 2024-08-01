@@ -1,0 +1,13 @@
+﻿global using Carter;
+global using Mapster;
+global using MediatR;
+global using eCommerceMicroservices2.BuildingBlocks.CQRS;
+global using eCommerceMicroservicesV2.Catalog.API.Models;
+global using Marten;
+global using eCommerceMicroservicesV2.Catalog.API.Exceptions;
+global using FluentValidation;
+global using eCommerceMicroservices2.BuildingBlocks.Exceptions;
+global using eCommerceMicroservices2.BuildingBlocks.Behaviors;
+global using eCommerceMicroservices2.BuildingBlocks.Exceptions.Handler;
+global using eCommerceMicroservicesV2.Catalog.API.Data;
+global using Marten.Pagination;
