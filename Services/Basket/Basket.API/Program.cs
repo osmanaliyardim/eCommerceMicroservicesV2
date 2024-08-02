@@ -1,9 +1,10 @@
 var builder = WebApplication.CreateBuilder(args);
 
 var assembly = typeof(Program).Assembly;
-var catalogDbConnStr = builder.Configuration.GetConnectionString(Messages.CATALOG_DB_NAME);
+var basketDbConnStr = builder.Configuration.GetConnectionString(Messages.BASKET_DB_NAME);
+var cacheConnStr = builder.Configuration.GetConnectionString(Messages.REDIS_CACHE_NAME);
 
-// Add services to container
+// Add services to the container
 builder.Services.AddCarter();
 
 builder.Services.AddMediatR(config =>
@@ -15,12 +16,13 @@ builder.Services.AddMediatR(config =>
 
 builder.Services.AddMarten(options =>
 {
-    options.Connection(catalogDbConnStr!);
+    options.Connection(basketDbConnStr!);
+    options.Schema.For<ShoppingCart>().Identity(x => x.UserName);
 }).UseLightweightSessions();
 
 if (builder.Environment.IsDevelopment())
 {
-    builder.Services.InitializeMartenWith<CatalogInitialData>();
+    builder.Services.InitializeMartenWith<BasketInitialData>();
 }
 
 builder.Services.AddValidatorsFromAssembly(assembly);
@@ -28,7 +30,16 @@ builder.Services.AddValidatorsFromAssembly(assembly);
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 
 builder.Services.AddHealthChecks()
-    .AddNpgSql(catalogDbConnStr!);
+    .AddNpgSql(basketDbConnStr!)
+    .AddRedis(cacheConnStr!);
+
+builder.Services.AddScoped<IBasketRepository, BasketRepository>();
+builder.Services.Decorate<IBasketRepository, CachedBasketRepository>();
+
+builder.Services.AddStackExchangeRedisCache(options =>
+{
+    options.Configuration = cacheConnStr;
+});
 
 var app = builder.Build();
 
