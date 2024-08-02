@@ -2,6 +2,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 var assembly = typeof(Program).Assembly;
 var basketDbConnStr = builder.Configuration.GetConnectionString(Messages.BASKET_DB_NAME);
+var cacheConnStr = builder.Configuration.GetConnectionString(Messages.REDIS_CACHE_NAME);
 
 // Add services to the container
 builder.Services.AddCarter();
@@ -20,6 +21,12 @@ builder.Services.AddMarten(options =>
 }).UseLightweightSessions();
 
 builder.Services.AddScoped<IBasketRepository, BasketRepository>();
+builder.Services.Decorate<IBasketRepository, CachedBasketRepository>();
+
+builder.Services.AddStackExchangeRedisCache(options =>
+{
+    options.Configuration = cacheConnStr;
+});
 
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 

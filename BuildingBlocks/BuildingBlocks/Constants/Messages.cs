@@ -17,6 +17,7 @@
     // Connection Strings/Keys/Secrets
     public const string CATALOG_DB_NAME = "CatalogDB";
     public const string BASKET_DB_NAME = "BasketDB";
+    public const string REDIS_CACHE_NAME = "RedisCacheConn";
 
     // Endpoints
     public const string HEALTH_CHECK_ENDPOINT = "/health";
