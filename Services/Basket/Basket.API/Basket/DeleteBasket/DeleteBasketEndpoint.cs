@@ -2,7 +2,7 @@
 
 //public record DeleteBasketRequest(string UserName);
 
-public record DeleteBasketResponse(bool isSuccess);
+public record DeleteBasketResponse(bool IsSuccess);
 
 public class DeleteBasketEndpoint : ICarterModule
 {

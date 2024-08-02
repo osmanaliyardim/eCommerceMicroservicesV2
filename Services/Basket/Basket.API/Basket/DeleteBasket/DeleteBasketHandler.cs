@@ -2,7 +2,7 @@
 
 public record DeleteBasketCommand(string UserName) : ICommand<DeleteBasketResult>;
 
-public record DeleteBasketResult(bool isSuccess);
+public record DeleteBasketResult(bool IsSuccess);
 
 public class DeleteBasketCommandValidator : AbstractValidator<DeleteBasketCommand>
 {
@@ -14,10 +14,13 @@ public class DeleteBasketCommandValidator : AbstractValidator<DeleteBasketComman
     }
 }
 
-internal class DeleteBasketCommandHandler : ICommandHandler<DeleteBasketCommand, DeleteBasketResult>
+internal class DeleteBasketCommandHandler(IBasketRepository basketRepository)
+    : ICommandHandler<DeleteBasketCommand, DeleteBasketResult>
 {
-    public async Task<DeleteBasketResult> Handle(DeleteBasketCommand request, CancellationToken cancellationToken)
+    public async Task<DeleteBasketResult> Handle(DeleteBasketCommand command, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        var result = await basketRepository.DeleteBasketAsync(command.UserName, cancellationToken);
+
+        return new DeleteBasketResult(result);
     }
 }
