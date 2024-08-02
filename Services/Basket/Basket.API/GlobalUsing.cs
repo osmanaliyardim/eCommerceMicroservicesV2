@@ -9,3 +9,4 @@ global using eCommerceMicroservices2.BuildingBlocks.Exceptions;
 global using eCommerceMicroservicesV2.Catalog.API.Exceptions;
 global using Marten;
 global using eCommerceMicroservicesV2.Basket.API.Data;
+global using eCommerceMicroservices2.BuildingBlocks.Exceptions.Handler;
