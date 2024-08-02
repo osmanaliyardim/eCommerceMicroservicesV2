@@ -3,8 +3,6 @@ using eCommerceMicroservicesV2.Discount.Grpc.Models;
 using Grpc.Core;
 using Mapster;
 using Microsoft.EntityFrameworkCore;
-using static Grpc.Core.Metadata;
-using System.Globalization;
 
 namespace eCommerceMicroservicesV2.Discount.Grpc.Services;
 
