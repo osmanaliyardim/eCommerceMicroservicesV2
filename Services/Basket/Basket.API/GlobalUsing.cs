@@ -5,3 +5,6 @@ global using Mapster;
 global using MediatR;
 global using FluentValidation;
 global using eCommerceMicroservices2.BuildingBlocks.Behaviors;
+global using eCommerceMicroservices2.BuildingBlocks.Exceptions;
+global using eCommerceMicroservicesV2.Catalog.API.Exceptions;
+global using Marten;
