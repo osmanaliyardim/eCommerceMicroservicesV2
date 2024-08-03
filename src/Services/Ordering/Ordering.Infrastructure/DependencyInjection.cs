@@ -1,4 +1,5 @@
 ﻿using eCommerceMicroservicesV2.Ordering.Infrastructure.Data;
+using eCommerceMicroservicesV2.Ordering.Infrastructure.Data.Interceptors;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -12,6 +13,7 @@ public static class DependencyInjection
 
         services.AddDbContext<ApplicationDbContext>(options =>
         {
+            options.AddInterceptors(new AuditableEntityInterceptor());
             options.UseSqlServer(connStr);
         });
 
