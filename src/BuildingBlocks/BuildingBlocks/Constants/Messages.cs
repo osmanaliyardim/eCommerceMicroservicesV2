@@ -3,6 +3,7 @@
     // Const Errors
     public const string DEFAULT_ERROR = "ERROR - Something went wrong.";
     public const string VALIDATION_ERROR = "ERROR - Validation error occurred.";
+    public const string DATABASE_ERROR = "ERROR - Problem with database saving.";
 
     // Functional Errors
     public static string GetPerformanceError<TRequest>(int timeTaken)

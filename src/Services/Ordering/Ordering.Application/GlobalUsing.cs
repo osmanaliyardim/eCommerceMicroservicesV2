@@ -4,3 +4,6 @@ global using eCommerceMicroservicesV2.Ordering.Domain.Models;
 global using FluentValidation;
 global using eCommerceMicroservicesV2.Ordering.Application.Data;
 global using eCommerceMicroservicesV2.Ordering.Domain.ValueObjects;
+global using Microsoft.EntityFrameworkCore;
+global using eCommerceMicroservicesV2.BuildingBlocks.Exceptions;
+global using eCommerceMicroservicesV2.Ordering.Application.Exceptions;

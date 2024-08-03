@@ -8,7 +8,11 @@ public class CreateOrderHandler(IApplicationDbContext context)
         var order = CreateNewOrder(command.OrderDto);
 
         context.Orders.Add(order);
-        await context.SaveChangesAsync(cancellationToken);
+
+        var result = await context.SaveChangesAsync(cancellationToken) > 0;
+
+        if (!result)
+            throw new DatabaseException(Messages.DATABASE_ERROR);
 
         return new CreateOrderResult(command.OrderDto);
     }
