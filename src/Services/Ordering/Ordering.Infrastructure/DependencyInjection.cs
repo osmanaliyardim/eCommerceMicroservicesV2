@@ -1,4 +1,5 @@
-﻿using eCommerceMicroservicesV2.Ordering.Infrastructure.Data;
+﻿using eCommerceMicroservicesV2.Ordering.Application.Data;
+using eCommerceMicroservicesV2.Ordering.Infrastructure.Data;
 using eCommerceMicroservicesV2.Ordering.Infrastructure.Data.Interceptors;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
@@ -21,6 +22,8 @@ public static class DependencyInjection
             options.AddInterceptors(serviceProvider.GetServices<ISaveChangesInterceptor>());
             options.UseSqlServer(connStr);
         });
+
+        services.AddScoped<IApplicationDbContext, ApplicationDbContext>();
 
         return services;
     }
