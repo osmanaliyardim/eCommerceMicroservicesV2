@@ -80,4 +80,4 @@ docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d
 
 4. Wait for docker compose all microservices. That’s it! (some microservices need extra time to work so please wait if not worked in first shut)
 
-5. Launch **Shopping Web UI -> https://localhost:6065** in your browser to view index page. You can use Web project in order to **call microservices over Yarp API Gateway**. When you **checkout the basket** you can follow **queue record on RabbitMQ dashboard**.
+5. Call microservices over **Yarp API Gateway**. When you **checkout the basket** you can follow queue record on **RabbitMQ dashboard**.
