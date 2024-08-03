@@ -23,6 +23,7 @@
     public const string BASKET_DB_NAME = "BasketDB";
     public const string REDIS_CACHE_NAME = "RedisCacheConn";
     public const string DISCOUNT_DB_NAME = "DiscountDB";
+    public const string DISCOUNT_GRPC_NAME = "GrpcSettings:DiscountUrl";
 
     // Endpoints
     public const string HEALTH_CHECK_ENDPOINT = "/health";
