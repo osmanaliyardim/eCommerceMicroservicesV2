@@ -7,4 +7,8 @@
     <RootNamespace>eCommerceMicroservicesV2.Ordering.Domain</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="12.4.0" />
+  </ItemGroup>
+
 </Project>
