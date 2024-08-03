@@ -7,6 +7,7 @@
     <UserSecretsId>b49c5aeb-649d-4a91-8396-ced420823803</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>..\..\..</DockerfileContext>
+    <RootNamespace>eCommerceMicroservicesV2.Ordering.API</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
