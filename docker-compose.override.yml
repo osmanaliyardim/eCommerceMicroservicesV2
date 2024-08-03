@@ -25,6 +25,15 @@ services:
     volumes:
       - postgres_basket:/var/lib/postgresql/data/
 
+  orderingdb:
+    container_name: orderingdb
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=OsMaN123456
+    restart: always
+    ports:
+      - "1433:1433" 
+
   distributedcache:
     container_name: distributedcache
     restart: always
