@@ -3,6 +3,7 @@ var builder = WebApplication.CreateBuilder(args);
 var assembly = typeof(Program).Assembly;
 var basketDbConnStr = builder.Configuration.GetConnectionString(Messages.BASKET_DB_NAME);
 var cacheConnStr = builder.Configuration.GetConnectionString(Messages.REDIS_CACHE_NAME);
+var discountGrpcServerUrl = builder.Configuration[Messages.DISCOUNT_GRPC_NAME];
 
 // Add services to the container
 builder.Services.AddCarter();
@@ -39,6 +40,22 @@ builder.Services.Decorate<IBasketRepository, CachedBasketRepository>();
 builder.Services.AddStackExchangeRedisCache(options =>
 {
     options.Configuration = cacheConnStr;
+});
+
+// GRPC Services
+builder.Services.AddGrpcClient<DiscountProtoService.DiscountProtoServiceClient>(options =>
+{
+    options.Address = new Uri(discountGrpcServerUrl!);
+})
+.ConfigurePrimaryHttpMessageHandler(() =>
+{
+    var handler = new HttpClientHandler
+    {
+        ServerCertificateCustomValidationCallback = HttpClientHandler
+            .DangerousAcceptAnyServerCertificateValidator
+    };
+
+    return handler;
 });
 
 var app = builder.Build();
