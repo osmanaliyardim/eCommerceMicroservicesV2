@@ -24,6 +24,7 @@
     public const string REDIS_CACHE_NAME = "RedisCacheConn";
     public const string DISCOUNT_DB_NAME = "DiscountDB";
     public const string DISCOUNT_GRPC_NAME = "GrpcSettings:DiscountUrl";
+    public const string ORDERING_DB_NAME = "OrderingDB";
 
     // Endpoints
     public const string HEALTH_CHECK_ENDPOINT = "/health";
