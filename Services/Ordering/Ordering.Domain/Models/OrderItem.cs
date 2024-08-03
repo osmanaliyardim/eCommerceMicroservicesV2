@@ -10,7 +10,7 @@ public class OrderItem : Entity<OrderItemId>
 
     public decimal Price { get; private set; } = default!;
 
-    public OrderItem
+    internal OrderItem
         (OrderId orderId, ProductId productId, int quantity, decimal price)
     {
         Id = OrderItemId.Of(Guid.NewGuid());
