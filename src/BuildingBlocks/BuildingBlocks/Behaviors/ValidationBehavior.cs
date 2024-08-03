@@ -1,8 +1,8 @@
-﻿using eCommerceMicroservices2.BuildingBlocks.CQRS;
+﻿using eCommerceMicroservicesV2.BuildingBlocks.CQRS;
 using FluentValidation;
 using Microsoft.Extensions.Logging;
 
-namespace eCommerceMicroservices2.BuildingBlocks.Behaviors;
+namespace eCommerceMicroservicesV2.BuildingBlocks.Behaviors;
 
 public class ValidationBehavior<TRequest, TResponse>(IEnumerable<IValidator<TRequest>> validators, ILogger<ValidationBehavior<TRequest, TResponse>> logger)
     : IPipelineBehavior<TRequest, TResponse>

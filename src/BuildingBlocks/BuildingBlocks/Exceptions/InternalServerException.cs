@@ -1,4 +1,4 @@
-﻿namespace eCommerceMicroservices2.BuildingBlocks.Exceptions;
+﻿namespace eCommerceMicroservicesV2.BuildingBlocks.Exceptions;
 
 public class InternalServerException : Exception
 {

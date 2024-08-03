@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace eCommerceMicroservices2.BuildingBlocks.Exceptions.Handler;
+namespace eCommerceMicroservicesV2.BuildingBlocks.Exceptions.Handler;
 
 public class CustomExceptionHandler(ILogger<CustomExceptionHandler> logger)
     : IExceptionHandler

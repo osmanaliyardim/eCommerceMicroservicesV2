@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace eCommerceMicroservices2.BuildingBlocks.CQRS;
+namespace eCommerceMicroservicesV2.BuildingBlocks.CQRS;
 
 public interface ICommandHandler<in TCommand> : ICommandHandler<TCommand, Unit> 
     where TCommand : ICommand<Unit>
