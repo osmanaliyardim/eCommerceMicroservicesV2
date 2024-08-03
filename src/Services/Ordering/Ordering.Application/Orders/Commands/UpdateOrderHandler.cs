@@ -8,7 +8,7 @@ public class UpdateOrderHandler(IApplicationDbContext context)
         var orderId = OrderId.Of(command.OrderDto.Id);
         var orderToUpdate = await context.Orders.FindAsync([orderId], cancellationToken);
 
-        if (orderToUpdate == null)
+        if (orderToUpdate is null)
             throw new OrderNotFoundException(command.OrderDto.Id);
 
         UpdateOrder(orderToUpdate, command.OrderDto);
