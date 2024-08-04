@@ -13,3 +13,4 @@ global using eCommerceMicroservicesV2.Catalog.API.Data;
 global using Marten.Pagination;
 global using HealthChecks.UI.Client;
 global using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+global using eCommerceMicroservicesV2.BuildingBlocks.Constants;

@@ -1,4 +1,6 @@
-﻿public class Messages
+﻿namespace eCommerceMicroservicesV2.BuildingBlocks.Constants;
+
+public class Messages
 {
     // Const Errors
     public const string DEFAULT_ERROR = "ERROR - Something went wrong.";
