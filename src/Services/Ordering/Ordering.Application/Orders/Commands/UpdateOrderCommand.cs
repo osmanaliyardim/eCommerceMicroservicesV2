@@ -20,7 +20,4 @@ public class UpdateOrderCommandValidator : AbstractValidator<UpdateOrderCommand>
     }
 }
 
-public record UpdateOrderCommand(OrderDto OrderDto) : ICommand<UpdateOrderResult>
-{
-
-}
+public record UpdateOrderCommand(OrderDto OrderDto) : ICommand<UpdateOrderResult>;

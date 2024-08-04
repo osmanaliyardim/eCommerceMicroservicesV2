@@ -17,6 +17,6 @@ public class DeleteOrderHandler(IApplicationDbContext context)
         if (!result)
             throw new DatabaseException(Messages.DATABASE_ERROR);
 
-        return new DeleteOrderResult(result);
+        return new DeleteOrderResult(true);
     }
 }

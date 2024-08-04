@@ -20,7 +20,4 @@ public class CreateOrderCommandValidator : AbstractValidator<CreateOrderCommand>
     }
 }
 
-public record CreateOrderCommand(OrderDto OrderDto) : ICommand<CreateOrderResult>
-{
-
-}
+public record CreateOrderCommand(OrderDto OrderDto) : ICommand<CreateOrderResult>;

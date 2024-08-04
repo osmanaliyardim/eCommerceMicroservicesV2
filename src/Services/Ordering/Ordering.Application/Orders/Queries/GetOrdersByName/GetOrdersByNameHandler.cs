@@ -7,11 +7,11 @@ public class GetOrdersByNameHandler(IApplicationDbContext context)
 {
     public async Task<GetOrdersByNameResult> Handle(GetOrdersByNameQuery query, CancellationToken cancellationToken)
     {
-        var orderName = OrderName.Of(query.Name);
+        var orderName = OrderName.Of(query.OrderName);
         
         var orders = await context.Orders
             .Include(o => o.OrderItems)
-                .Where(o => o.OrderName.Value.Contains(query.Name))
+                .Where(o => o.OrderName.Value.Contains(query.OrderName))
                     .OrderBy(o => o.OrderName.Value)
                         .AsNoTracking()
                             .ToListAsync(cancellationToken);

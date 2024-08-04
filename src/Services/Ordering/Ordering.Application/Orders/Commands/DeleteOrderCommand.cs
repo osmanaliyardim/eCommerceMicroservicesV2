@@ -12,7 +12,4 @@ public class DeleteOrderCommandValidator : AbstractValidator<DeleteOrderCommand>
     }
 }
 
-public record DeleteOrderCommand(Guid OrderId) : ICommand<DeleteOrderResult>
-{
-
-}
+public record DeleteOrderCommand(Guid OrderId) : ICommand<DeleteOrderResult>;
