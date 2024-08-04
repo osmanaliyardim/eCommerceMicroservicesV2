@@ -7,3 +7,7 @@ global using eCommerceMicroservicesV2.Ordering.Domain.ValueObjects;
 global using Microsoft.EntityFrameworkCore;
 global using eCommerceMicroservicesV2.BuildingBlocks.Exceptions;
 global using eCommerceMicroservicesV2.Ordering.Application.Exceptions;
+global using MediatR;
+global using eCommerceMicroservicesV2.Ordering.Domain.Events;
+global using Microsoft.Extensions.Logging;
+global using Mapster;

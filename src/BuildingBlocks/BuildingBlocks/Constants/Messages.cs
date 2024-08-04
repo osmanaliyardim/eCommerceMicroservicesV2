@@ -14,10 +14,15 @@
     {
         return $"Error Message: {errorMessage}, Time of occurrence {occuranceTime}";
     }
+    public static string GetDomainEventMessage(string domainEventName)
+    {
+        return $"Domain Event handled: {domainEventName}";
+    }
 
     // Const Infos
     public const string NO_COUPON_FOUND = "INFO - No coupon found, there will be no discount.";
     public const string COUPON_FOUND = "INFO - Coupon found, discount(s) will be applied to your total price.";
+    public const string DOMAIN_EVENT_HANDLEND = "INFO - Domain Event handled successfully.";
 
     // Connection Strings/Keys/Secrets
     public const string CATALOG_DB_NAME = "CatalogDB";
