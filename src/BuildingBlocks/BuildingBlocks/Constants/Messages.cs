@@ -43,6 +43,7 @@ public class Messages
     public const string ORDERING_DB_NAME = "OrderingDB";
     public const string ORDER_FULLFILMENT_FLAG = "OrderFullfilment";
     public const string YARP_GATEWAY_NAME = "ReverseProxy";
+    public const string RATE_LIMITER_POLICY = "fixed";
 
     // Endpoints
     public const string HEALTH_CHECK_ENDPOINT = "/health";
