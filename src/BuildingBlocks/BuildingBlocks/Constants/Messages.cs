@@ -20,6 +20,10 @@ public class Messages
     {
         return $"Domain Event handled: {domainEventName}";
     }
+    public static string GetIntegrationEventMessage(string integrationEventName)
+    {
+        return $"Integration Event handled: {integrationEventName}";
+    }
 
     // Const Infos
     public const string NO_COUPON_FOUND = "INFO - No coupon found, there will be no discount.";
