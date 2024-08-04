@@ -1,12 +1,19 @@
-﻿namespace eCommerceMicroservicesV2.Ordering.Application.Orders.EventHandlers.Domain;
+﻿using eCommerceMicroservicesV2.Ordering.Application.Extensions;
+using MassTransit;
 
-public class OrderCreatedEventHandler(ILogger<OrderCreatedEventHandler> logger)
+namespace eCommerceMicroservicesV2.Ordering.Application.Orders.EventHandlers.Domain;
+
+public class OrderCreatedEventHandler
+    (IPublishEndpoint publishEndpoint, ILogger<OrderCreatedEventHandler> logger)
     : INotificationHandler<OrderCreatedEvent>
 {
-    public Task Handle(OrderCreatedEvent notification, CancellationToken cancellationToken)
+    public async Task Handle(OrderCreatedEvent domainEvent, CancellationToken cancellationToken)
     {
-        logger.LogInformation(Messages.GetDomainEventMessage(notification.GetType().Name));
+        logger.LogInformation(Messages.GetDomainEventMessage(domainEvent.GetType().Name));
 
-        return Task.CompletedTask;
+        var orderCreatedIntegrationEvent = domainEvent.Order.ToOrderDto();
+
+        // Send event message to the RabbitMQ
+        await publishEndpoint.Publish(orderCreatedIntegrationEvent, cancellationToken);
     }
 }
