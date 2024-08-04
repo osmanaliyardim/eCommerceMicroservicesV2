@@ -25,6 +25,15 @@ services:
     volumes:
       - postgres_basket:/var/lib/postgresql/data/
 
+  orderingdb:
+    container_name: orderingdb
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=OsMaN123456
+    restart: always
+    ports:
+      - "1433:1433" 
+
   distributedcache:
     container_name: distributedcache
     restart: always
@@ -74,6 +83,21 @@ services:
     ports:
       - "6002:8080"
       - "6062:8081"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+
+  ordering.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ASPNETCORE_HTTPS_PORTS=8081
+      - ConnectionStrings__OrderingDB=Server=orderingdb;Database=OrderingDb;User Id=sa;Password=OsMaN123456;Encrypt=False;TrustServerCertificate=True;
+    depends_on:
+      - orderingdb
+    ports:
+      - "6003:8080"
+      - "6063:8081"
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro

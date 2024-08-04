@@ -1,0 +1,11 @@
+﻿global using eCommerceMicroservicesV2.Ordering.API;
+global using eCommerceMicroservicesV2.Ordering.Application;
+global using eCommerceMicroservicesV2.Ordering.Infrastructure;
+global using eCommerceMicroservicesV2.Ordering.Infrastructure.Data.Extensions;
+global using Carter;
+global using MediatR;
+global using Microsoft.AspNetCore.Mvc;
+global using eCommerceMicroservicesV2.Ordering.Application.Dtos;
+global using eCommerceMicroservicesV2.Ordering.Application.Orders.Commands;
+global using eCommerceMicroservicesV2.BuildingBlocks.Pagination;
+global using Mapster;
