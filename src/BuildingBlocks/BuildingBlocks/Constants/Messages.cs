@@ -1,4 +1,6 @@
-﻿public class Messages
+﻿namespace eCommerceMicroservicesV2.BuildingBlocks.Constants;
+
+public class Messages
 {
     // Const Errors
     public const string DEFAULT_ERROR = "ERROR - Something went wrong.";
@@ -18,6 +20,14 @@
     {
         return $"Domain Event handled: {domainEventName}";
     }
+    public static string GetIntegrationEventMessage(string integrationEventName)
+    {
+        return $"Integration Event handled: {integrationEventName}";
+    }
+    public static string GetDomainEventFailedMessage(string integrationEventName)
+    {
+        return $"Integration Event failed: {integrationEventName}";
+    }
 
     // Const Infos
     public const string NO_COUPON_FOUND = "INFO - No coupon found, there will be no discount.";
@@ -31,6 +41,7 @@
     public const string DISCOUNT_DB_NAME = "DiscountDB";
     public const string DISCOUNT_GRPC_NAME = "GrpcSettings:DiscountUrl";
     public const string ORDERING_DB_NAME = "OrderingDB";
+    public const string ORDER_FULLFILMENT_FLAG = "OrderFullfilment";
 
     // Endpoints
     public const string HEALTH_CHECK_ENDPOINT = "/health";

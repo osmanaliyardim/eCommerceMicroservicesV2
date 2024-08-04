@@ -1,4 +1,5 @@
-﻿using eCommerceMicroservicesV2.Ordering.Application.Data;
+﻿using eCommerceMicroservicesV2.BuildingBlocks.Constants;
+using eCommerceMicroservicesV2.Ordering.Application.Data;
 using eCommerceMicroservicesV2.Ordering.Infrastructure.Data;
 using eCommerceMicroservicesV2.Ordering.Infrastructure.Data.Interceptors;
 using Microsoft.EntityFrameworkCore.Diagnostics;

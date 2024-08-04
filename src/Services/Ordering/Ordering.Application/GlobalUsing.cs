@@ -11,3 +11,4 @@ global using MediatR;
 global using eCommerceMicroservicesV2.Ordering.Domain.Events;
 global using Microsoft.Extensions.Logging;
 global using eCommerceMicroservicesV2.BuildingBlocks.Pagination;
+global using eCommerceMicroservicesV2.BuildingBlocks.Constants;

@@ -9,3 +9,4 @@ global using eCommerceMicroservicesV2.Ordering.Application.Dtos;
 global using eCommerceMicroservicesV2.Ordering.Application.Orders.Commands;
 global using eCommerceMicroservicesV2.BuildingBlocks.Pagination;
 global using Mapster;
+global using eCommerceMicroservicesV2.BuildingBlocks.Constants;
