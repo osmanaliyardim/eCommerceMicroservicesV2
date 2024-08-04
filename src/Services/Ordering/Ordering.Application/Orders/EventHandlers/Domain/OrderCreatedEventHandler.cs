@@ -1,19 +1,26 @@
 ﻿using eCommerceMicroservicesV2.Ordering.Application.Extensions;
 using MassTransit;
+using Microsoft.FeatureManagement;
 
 namespace eCommerceMicroservicesV2.Ordering.Application.Orders.EventHandlers.Domain;
 
 public class OrderCreatedEventHandler
-    (IPublishEndpoint publishEndpoint, ILogger<OrderCreatedEventHandler> logger)
+    (IPublishEndpoint publishEndpoint, IFeatureManager featureManager, ILogger<OrderCreatedEventHandler> logger)
     : INotificationHandler<OrderCreatedEvent>
 {
     public async Task Handle(OrderCreatedEvent domainEvent, CancellationToken cancellationToken)
     {
-        logger.LogInformation(Messages.GetDomainEventMessage(domainEvent.GetType().Name));
+        var domainEventName = domainEvent.GetType().Name;
 
-        var orderCreatedIntegrationEvent = domainEvent.Order.ToOrderDto();
+        logger.LogInformation(Messages.GetDomainEventMessage(domainEventName));
 
-        // Send event message to the RabbitMQ
-        await publishEndpoint.Publish(orderCreatedIntegrationEvent, cancellationToken);
+        if (await featureManager.IsEnabledAsync(Messages.ORDER_FULLFILMENT_FLAG))
+        {
+            var orderCreatedIntegrationEvent = domainEvent.Order.ToOrderDto();
+
+            // Send event message to the RabbitMQ
+            await publishEndpoint.Publish(orderCreatedIntegrationEvent, cancellationToken);
+        }
+        else logger.LogWarning(Messages.GetDomainEventFailedMessage(domainEventName));
     }
 }

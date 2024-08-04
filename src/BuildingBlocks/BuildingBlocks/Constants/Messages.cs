@@ -24,6 +24,10 @@ public class Messages
     {
         return $"Integration Event handled: {integrationEventName}";
     }
+    public static string GetDomainEventFailedMessage(string integrationEventName)
+    {
+        return $"Integration Event failed: {integrationEventName}";
+    }
 
     // Const Infos
     public const string NO_COUPON_FOUND = "INFO - No coupon found, there will be no discount.";
@@ -37,6 +41,7 @@ public class Messages
     public const string DISCOUNT_DB_NAME = "DiscountDB";
     public const string DISCOUNT_GRPC_NAME = "GrpcSettings:DiscountUrl";
     public const string ORDERING_DB_NAME = "OrderingDB";
+    public const string ORDER_FULLFILMENT_FLAG = "OrderFullfilment";
 
     // Endpoints
     public const string HEALTH_CHECK_ENDPOINT = "/health";

@@ -3,6 +3,7 @@ using eCommerceMicroservicesV2.BuildingBlocks.Messaging.MassTransit;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
+using Microsoft.FeatureManagement;
 
 namespace eCommerceMicroservicesV2.Ordering.Application;
 
@@ -19,6 +20,8 @@ public static class DependencyInjection
         });
 
         services.AddMessageBroker(configuration, Assembly.GetExecutingAssembly());
+
+        services.AddFeatureManagement();
 
         return services;
     }
