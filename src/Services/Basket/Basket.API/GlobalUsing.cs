@@ -13,3 +13,4 @@ global using eCommerceMicroservicesV2.BuildingBlocks.Exceptions.Handler;
 global using HealthChecks.UI.Client;
 global using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 global using eCommerceMicroservicesV2.Discount.Grpc;
+global using eCommerceMicroservicesV2.BuildingBlocks.Constants;
